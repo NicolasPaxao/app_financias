@@ -25,8 +25,9 @@ class HomePage extends StatelessWidget {
                           shrinkWrap: true,
                           itemCount: controller.currencies.length,
                           itemBuilder: (context, index) {
+                            final currency = controller.currencies[index];
                             return ListTile(
-                              title: Text(controller.currencies[index].name),
+                              title: Text('${currency.key} - ${currency.name}'),
                             );
                           },
                         ),
@@ -36,8 +37,9 @@ class HomePage extends StatelessWidget {
                           shrinkWrap: true,
                           itemCount: controller.stocks.length,
                           itemBuilder: (context, index) {
+                            final stock = controller.stocks[index];
                             return ListTile(
-                              title: Text(controller.stocks[index].name),
+                              title: Text('${stock.key} - ${stock.name}'),
                             );
                           },
                         ),
@@ -47,8 +49,10 @@ class HomePage extends StatelessWidget {
                           shrinkWrap: true,
                           itemCount: controller.brokerages.length,
                           itemBuilder: (context, index) {
+                            final brokerage = controller.brokerages[index];
                             return ListTile(
-                              title: Text(controller.brokerages[index].name),
+                              title:
+                                  Text('${brokerage.key} - ${brokerage.name}'),
                             );
                           },
                         ),

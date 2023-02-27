@@ -52,11 +52,11 @@ class FinanceController extends GetxController {
     Map<String, dynamic> bitcoinMap = results['bitcoin'];
     Map<String, dynamic> taxesMap = results['taxes'][0];
 
-    currenciesMap
-        .forEach((key, map) => currencies.add(CurrencyModel.fromJson(map)));
-    stocksMap.forEach((key, map) => stocks.add(StockModel.fromJson(map)));
-    bitcoinMap
-        .forEach((key, map) => brokerages.add(BrokerageModel.fromJson(map)));
+    currenciesMap.forEach(
+        (key, map) => currencies.add(CurrencyModel.fromJson(map, key)));
+    stocksMap.forEach((key, map) => stocks.add(StockModel.fromJson(map, key)));
+    bitcoinMap.forEach(
+        (key, map) => brokerages.add(BrokerageModel.fromJson(map, key)));
     taxesModel = TaxesModel.fromJson(taxesMap);
 
     debugPrint("Sucesso na execuão!");
