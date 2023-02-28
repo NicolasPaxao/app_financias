@@ -12,6 +12,7 @@ dependencies:
   dio: ^5.0.1
   get: ^4.6.5
   flutter_dotenv: ^5.0.2
+  google_fonts: ^4.0.3
   flutter:
     sdk: flutter
 
