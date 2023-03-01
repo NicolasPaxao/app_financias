@@ -11,6 +11,18 @@ import '../../../utils/http_manager.dart';
 
 class FinanceController extends GetxController {
   bool isLoading = false;
+  RxInt pageIndex = 0.obs;
+  PageController pageController = PageController();
+
+  void pageNavigation(int index) {
+    pageIndex.value = index;
+    update();
+    pageController.animateToPage(
+      pageIndex.value,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
 
   void setLoading(bool value) {
     isLoading = value;
@@ -26,10 +38,10 @@ class FinanceController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _getData();
+    _getDataInit();
   }
 
-  Future<void> _getData() async {
+  Future<void> _getDataInit() async {
     if (results.isEmpty) {
       setLoading(true);
       HttpManager httpManager = HttpManager();
@@ -41,6 +53,23 @@ class FinanceController extends GetxController {
       _separeteData();
       setLoading(false);
     }
+  }
+
+  Future<void> getData() async {
+    currencies.clear();
+    stocks.clear();
+    brokerages.clear();
+    taxesModel = null;
+
+    setLoading(true);
+    HttpManager httpManager = HttpManager();
+    final result = await httpManager.request(
+      url: "$apiUrl/finance?key=${dotenv.get('API_KEY')}",
+      method: "GET",
+    );
+    results = result as Map<String, dynamic>;
+    _separeteData();
+    setLoading(false);
   }
 
   void _separeteData() {
