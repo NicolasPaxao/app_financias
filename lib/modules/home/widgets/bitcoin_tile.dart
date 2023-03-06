@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/currency_model.dart';
+import '../../../models/bitcoin_model.dart';
 
-class CurrencyTile extends StatelessWidget {
-  const CurrencyTile({
+class BitcoinTile extends StatelessWidget {
+  const BitcoinTile({
     super.key,
-    required this.currency,
+    required this.bitcoin,
   });
 
-  final CurrencyModel currency;
+  final BrokerageModel bitcoin;
 
   @override
   Widget build(BuildContext context) {
@@ -27,41 +27,46 @@ class CurrencyTile extends StatelessWidget {
             radius: 25,
             backgroundColor: Colors.black,
             foregroundColor: Colors.white,
-            child: Text(
-              currency.key,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+            child: FittedBox(
+              child: Text(
+                bitcoin.key,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
           title: Text(
-            currency.name,
+            bitcoin.name,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
+          subtitle: Text(
+            'Último valor: R\$ ${bitcoin.last.toStringAsFixed(2).replaceAll('.', ',')}',
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 12,
             ),
           ),
-          subtitle: currency.sell == 0.0
-              ? null
-              : Text(
-                  'Venda: R\$ ${currency.sell.toStringAsFixed(2).replaceAll('.', ',')}',
-                ),
           trailing: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                'R\$ ${currency.buy.toStringAsFixed(2).replaceAll('.', ',')}',
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
-              ),
+              bitcoin.buy == 0.0
+                  ? const SizedBox()
+                  : Text(
+                      'R\$ ${bitcoin.buy.toStringAsFixed(2).replaceAll('.', ',')}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
                     Icons.graphic_eq_outlined,
-                    color: currency.variation < 0
+                    color: bitcoin.variation < 0
                         ? Colors.redAccent
                         : Colors.greenAccent,
                     shadows: const [
@@ -73,11 +78,11 @@ class CurrencyTile extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    ' ${(currency.variation).toStringAsFixed(2)}%',
+                    ' ${(bitcoin.variation).toStringAsFixed(2)}%',
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w900,
-                        color: currency.variation < 0
+                        color: bitcoin.variation < 0
                             ? Colors.redAccent
                             : Colors.greenAccent),
                   ),

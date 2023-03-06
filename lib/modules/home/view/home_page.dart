@@ -81,9 +81,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   children: [
                     const HomeInfoPage(),
                     Column(
-                      children: const [
-                        Text('data'),
-                      ],
+                      children: const [],
                     )
                   ],
                 );

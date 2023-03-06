@@ -1,14 +1,13 @@
+import 'package:cotacao_moedas_app/models/stock_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/currency_model.dart';
-
-class CurrencyTile extends StatelessWidget {
-  const CurrencyTile({
+class StockTile extends StatelessWidget {
+  const StockTile({
     super.key,
-    required this.currency,
+    required this.stock,
   });
 
-  final CurrencyModel currency;
+  final StockModel stock;
 
   @override
   Widget build(BuildContext context) {
@@ -27,33 +26,36 @@ class CurrencyTile extends StatelessWidget {
             radius: 25,
             backgroundColor: Colors.black,
             foregroundColor: Colors.white,
-            child: Text(
-              currency.key,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+            child: FittedBox(
+              child: Text(
+                stock.key,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
           title: Text(
-            currency.name,
+            stock.name,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
+          subtitle: Text(
+            stock.location,
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 12,
             ),
           ),
-          subtitle: currency.sell == 0.0
-              ? null
-              : Text(
-                  'Venda: R\$ ${currency.sell.toStringAsFixed(2).replaceAll('.', ',')}',
-                ),
           trailing: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                'R\$ ${currency.buy.toStringAsFixed(2).replaceAll('.', ',')}',
+                'R\$ ${stock.points.toStringAsFixed(2).replaceAll('.', ',')}',
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 14,
                 ),
               ),
               Row(
@@ -61,7 +63,7 @@ class CurrencyTile extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.graphic_eq_outlined,
-                    color: currency.variation < 0
+                    color: stock.variation < 0
                         ? Colors.redAccent
                         : Colors.greenAccent,
                     shadows: const [
@@ -73,11 +75,11 @@ class CurrencyTile extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    ' ${(currency.variation).toStringAsFixed(2)}%',
+                    ' ${(stock.variation).toStringAsFixed(2)}%',
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w900,
-                        color: currency.variation < 0
+                        color: stock.variation < 0
                             ? Colors.redAccent
                             : Colors.greenAccent),
                   ),
